@@ -1,0 +1,4 @@
+{
+  "name": "qrng",
+  "description": "Generate random numbers from a given probability distribution."
+}
