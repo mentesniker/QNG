@@ -1,4 +1,30 @@
 {
-  "name": "qrng",
-  "description": "Generate random numbers from a given probability distribution."
+  "name": "random-number-generator",
+  "description": "Generate random numbers from a given probability distribution thorugh a dataset.",
+  "backend_requirements": {"min_num_qubits":  5},
+  "parameters": [
+    { "name": "dataset", 
+      "description": "the dataset to be used to infer the probability distribution.", 
+      "type": "list of int", "required": true
+    },
+    { "name": "sample_size", 
+      "description": "Quantity of random numbers to return.", 
+      "type": "int", "required": true
+    }
+  ],
+  "return_values": [
+    {
+      "name": "random-numbers", "description": "the specified numbers of random numbers", "type": "list of int"
+    },
+    {
+      "name": "loss of the generator", 
+      "description": "the values of the loss function of the generator. The higher the better the results.", 
+      "type": "list of float"
+    }
+  ],
+  "interim_results": [
+    {
+      "name": "iterations", "description": "Iteration number.", "type": "int"
+    }
+  ]
 }
