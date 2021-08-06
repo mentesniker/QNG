@@ -7,3 +7,4 @@ matplotlib
 pylatexenc
 pandas
 scikit-learn
+qiskit-machine-learning

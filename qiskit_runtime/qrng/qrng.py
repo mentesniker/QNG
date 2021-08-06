@@ -8,8 +8,8 @@
 
 """Source code for the QRNG Qiskit Runtime program."""
 
-from qiskit.aqua.algorithms import QGAN
-from qiskit import Aer
+from qiskit_machine_learning.algorithms.distribution_learners import QGAN
+from qiskit import Aer,execute
 
 def prepare_qgan(dataset,backend,iterations,batch_size,bounds):
     qgan = QGAN(data=dataset,num_epochs=iterations,bounds=bounds,batch_size=batch_size, 
@@ -20,20 +20,20 @@ def prepare_qgan(dataset,backend,iterations,batch_size,bounds):
 def generate_number(params,backend,qc,num_shots):
     new_circuit = qc.assign_parameters(parameters = params)
     new_circuit.measure_all()
-    return [int(x,2) for x in backend.run(new_circuit,shots=num_shots,memory=True).result().get_memory()]
+    return [int(x,2) for x in execute(new_circuit,backend,shots=num_shots,memory=True).result().get_memory()]
 
 def main(
     backend,
     user_messenger,
     dataset,
     sample_size,
+    iterations=10,
     **kwargs,
 ):
     back = Aer.get_backend("qasm_simulator")
-    qgan = prepare_qgan(dataset,back,5,[0,2],1)
+    qgan = prepare_qgan(dataset,back,iterations,1,[0,2])
     qc = qgan.generator.generator_circuit
     params = list(qgan.generator.parameter_values)
-    qc = qc.bind_parameters(params)
     result = generate_number(params,back,qc,sample_size)
-    user_messenger.publish(zip(result.get_counts(),qgan.g_loss), final=True)  # publish the final result
+    user_messenger.publish(dict({"numbers":result,"generator-loss":qgan.g_loss[0].tolist()}), final=True)  # publish the final result
 
