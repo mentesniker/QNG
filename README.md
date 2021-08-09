@@ -35,15 +35,17 @@ Once the previous step has finished you can test the program by using:
         -H 'accept: application/json' \
         -H 'Content-Type: application/json' \
         -d '{
-        "programId": "random-number-generator",
-        "hub": "string",
-        "group": "string",
-        "project": "string",
-        "backend": "string",
-        "params": [
-            "{\"greeting\":2000}"
-        ]
-    }'
+                "programId": "random-number-generator",
+                "hub": "string",
+                "group": "string",
+                "project": "string",
+                "backend": "string",
+                "params": [
+                    "{\"dataset\": [1,0,1,0,1,0]}",
+                    "{\"sample_size\": 50}",
+                    "{\"iterations\": 5}"
+                ]
+            }'
 
 After that the server will respond with a job id. You can check the status of the job by executing:
 
