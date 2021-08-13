@@ -1,5 +1,5 @@
 # QNG
-Quantum random number generator. Project created for the IEEE Services hackathon.
+Quantum random number generator. Project created for the IEEE Services hackathon. The main goal of this project is to learn a probability distribution through a dataset in order to create new numbers from that probability distribution. To learn the probability distribution we propose the use of a QGAN.
 
 ## Prerequisites to run a test:
 
